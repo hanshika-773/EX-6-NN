@@ -1,7 +1,7 @@
-3>ENTER YOUR NAME</H3>
-<H3>ENTER YOUR REGISTER NO.</H3>
+<H3>NAME : Hanshika Varthini R</H3>
+<H3>REGISTER NO. : 212223240046</H3>
 <H3>EX. NO.6</H3>
-<H3>DATE:</H3>
+<H3>DATE : 13/11/25</H3>
 <H1 ALIGN =CENTER>Heart attack prediction using MLP</H1>
 <H3>Aim:</H3>  To construct a  Multi-Layer Perceptron to predict heart attack using Python
 <H3>Algorithm:</H3>
@@ -17,11 +17,79 @@ Step 9:Evaluate the model's accuracy by comparing the predicted labels (y_pred) 
 Step 10:Print the accuracy of the model.<BR>
 Step 11:Plot the error convergence during training using plt.plot() and plt.show().<BR>
 <H3>Program: </H3>
-Insert your code here
+
+```
+
+Developed By : Hanshika Varthini R
+Register No. : 212223240046
+
+```
+
+
+```py
+
+
+import numpy as np
+import pandas as pd
+from sklearn.neural_network import MLPClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
+import matplotlib.pyplot as plt
+
+# Load the dataset (assuming it's stored in a file)
+data = pd.read_csv('heart.csv')
+
+# Separate features and labels
+X = data.iloc[:, :-1].values  # Features
+y = data.iloc[:, -1].values   # Labels
+
+# Split the dataset into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Normalize the feature data
+scaler = StandardScaler()
+X_train = scaler.fit_transform(X_train)
+X_test = scaler.transform(X_test)
+
+# Create and train the MLP model
+mlp = MLPClassifier(hidden_layer_sizes=(100, 100), max_iter=1000, random_state=42)
+training_loss = mlp.fit(X_train, y_train).loss_curve_
+
+# Make predictions on the testing set
+y_pred = mlp.predict(X_test)
+
+# Evaluate the model
+accuracy = accuracy_score(y_test, y_pred)
+conf_matrix = confusion_matrix(y_test, y_pred)
+classification_rep = classification_report(y_test, y_pred)
+
+# Plot the error convergence
+plt.plot(training_loss)
+plt.title("MLP Training Loss Convergence")
+plt.xlabel("Iteration")
+plt.ylabel("Training Loss")
+plt.show()
+
+# Print the results
+print(f"Accuracy: {accuracy}")
+
+print("\nConfusion Matrix:")
+print(conf_matrix)
+
+print("\nClassification Report:")
+print(classification_rep)
+
+
+```
 
 <H3>Output:</H3>
 
-Show your results here
+### Error Convergence:
+<img width="567" height="453" alt="image" src="https://github.com/user-attachments/assets/3bc3856e-4f62-4b8e-8152-bda78664e15c" />
+
+### Classification Metrics:
+<img width="553" height="383" alt="image" src="https://github.com/user-attachments/assets/cfad9cc3-bf13-4321-bf4a-87c9519772e1" />
 
 <H3>Results:</H3>
 Thus, an ANN with MLP is constructed and trained to predict the heart attack using python.
